@@ -617,24 +617,7 @@ GPG - GNUPG
 (*) Export public key for alice@example.com (output to stdout): `gpg --export --armor alice@example.com`
 (*) Export private key for alice@example.com (output to stdout): `gpg --export-secret-keys --armor alice@example.com`
 
-SSH - OPENSSH (THANKS, PUFFY!)
-==============================
-(*) Connect to a server using SSH: `ssh user@host`
-(*) Generate a SSH key: `ssh-keygen`
-(*) Generate SSH public key from the private key: `ssh-keygen -y -f privatekey.pem > publickey.pem`
-(*) Copy `~/.ssh/id_rsa.pub` to remote-server.org: `$ ssh-copy-id -i ~/.ssh/is_rsa.pub username@remote-server.org`
-(*) (Powershell) Copy SSH id without ssh-copy-id: `Get-Contents ~/.ssh/id_rsa.pub | ssh user@123.45.67.89 "cat >> ~/.ssh/authorized_keys"`
-(*) Sometimes SSH still won't use your key - make sure you've added it: `eval "$(ssh-agent -s) && ssh-add ~/.ssh/NAMEOFYOURKEY`
-(*) SSH connection through host in the middle: `ssh -J user@reachable_host user@unreacheable_host`
-(*) Specify the ID and port that SSH should use: `$ ssh-copy-id -i ~/.ssh/id_ed25519.pub -p 221 username@remote-server.org`
-(*) Copy a file to a remote server: `scp path/to/local_file user@host:/path/remote_file`
-(*) Make an encrypted archive of local dir/ on remote machine using ssh: `tar -c dir/ | gzip | gpg -c | ssh user@remote 'dd of=dir.tar.gz.gpg'`
-(*) Use a specific key to copy a file: `scp -i ~/.ssh/private_key local_file remote_host:/path/remote_file`
-(*) Infinite loop ssh: `while true; do ssh login@10.0.0.1; if [[ $? -ne 0 ]]; then echo "Nope, keep trying!"; fi; sleep 10; done`
-(*) Port forwarding: `ssh -L8888:localhost:80 -i nov15a.pem ubuntu@123.21.167.60`
-(*) Append a pub key from pem file and save in remote server accessing with another key: `ssh-keygen -y -f user-key.pem | ssh user@host -i already_on_remote_server_key.pem 'cat >> ~/.ssh/authorized_keys'`
-(*) Backup VPS disk to another host: `ssh root@vps.example -p22 "cat /dev/sda1 | gzip -1 - " > vps.sda1.img.gz`
-(*) Test your bash skills: `ssh bandit0@bandit.labs.overthewire.org -p 2220`
+
 
 OPENSSL
 =======
