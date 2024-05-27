@@ -1,0 +1,32 @@
+SYSTEM INFORMATION COMMANDS
+===========================
+(*) (SU) Show only errors and warnings: `dmesg --level=err,warn`
+(*) (SU) View dmesg output in human readable format: `dmesg -T`
+(*) (SU) Get an audio notification if a new device is attached to your computer: `dmesg -tW -l notice | gawk '{ if ($4 == "Attached") { system("echo New device attached | espeak") } }`
+(*) (SU) Dmesg: follow/wait for new kernel messages: `dmesg -w`
+(*) (SU) The proper way to read kernel messages in realtime.: `dmesg -wx`
+
+(*) Query graphics card: `lspci -nnk | grep -i VGA -A2`
+(*) Query sound card: `lspci -nnk | grep -i audio -A2`
+(*) Quick and dirty hardware summary: `(printf "\nCPU\n\n"; lscpu; printf "\nMEMORY\n\n"; free -h; printf "\nDISKS\n\n"; lsblk; printf "\nPCI\n\n"; lspci; printf "\nUSB\n\n"; lsusb; printf "\nNETWORK\n\n"; ifconfig) | less`
+(*) Percental CPU scaled load average: `printf "System load (1m/5m/15m): "; for l in 1 2 3 ; do printf "%.1f%s" "$(( $(cat /proc/loadavg | cut -f $l -d " ") * 100 / $(nproc) ))" "% "; done; printf "\n"`
+(*) Check whether laptop is running on battery or cable: `eval "$(printf "echo %s \$((%i * 100 / %i))\n" $(cat $(find /sys -name energy_now 2>/dev/null | head -1 | xargs dirname)/{status,energy_{now,full}}))%"`
+(*) Get battery stats: `DIR=$(find /sys -name energy_now -exec dirname {} \\; 2>/dev/null | head -1) && for STAT in $(find $DIR -maxdepth 1 -type f); do printf "%s %s\n" "$(basename $STAT)" "$(cat $STAT)"; done`
+(*) Is your machine plugged in?: `cat /sys/class/power_supply/AC/online`
+(*) Print your cpu intel architecture family: `cat /sys/devices/cpu/caps/pmu_name`
+(*) (OSX) Get CPU thermal data: `sysctl machdep.xcpm.cpu_thermal_level`
+(*) Quick integer CPU benchmark: `time cat /proc/cpuinfo | grep proc | wc -l| xargs seq | parallel -N 0 echo "2^2^20" '|' bc`
+(*) Small CPU benchmark with PI, bc and time.: `time cat /proc/cpuinfo | grep proc | wc -l | xargs seq | parallel -N 0 echo "scale=4000\; a\(1\)\*4" '|' bc -l`
+(*) Get device info for all USB devices: `echo /sys/bus/usb/devices/* | xargs udevadm info -q property -p`
+
+(*) List of commands you use most often: `history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head`
+(*) List of commands you use most often: `history | awk '{print $2}' | sort | uniq -c | sort -rn | head`
+(*) List all of the commands on your system that have a man page and a short description: `whatis -r .`
+
+(*) Create a file and manipulate the date: `touch -d '-1 year' /tmp/oldfile`
+(*) Get full path of a file: `readlink -f FILE`
+
+(*) See if a file is being used: `lsof /path/to/file`
+(*) To find out fonts that the `brave` browser is using: `for proc in $(ps -o pid --no-headers -C brave); do (lsof -p $proc | grep fonts | cut -f4); done`
+(*) List current processes writing to hard drive: `lsof | grep -e "[[:digit:]]\+w"`
+(*) Find which ports you probably want to open in your firewall on a fresh installed machine: `lsof -i -nlP | awk '{print $9, $8, $1}' | sed 's/.*://' | sort -u`
