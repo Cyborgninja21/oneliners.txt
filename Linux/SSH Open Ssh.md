@@ -1,5 +1,8 @@
-SSH - OPENSSH (THANKS, PUFFY!)
+# SSH - OPENSSH: [ssh](https://www.openssh.com/)
+
 ==============================
+
+```
 (*) Connect to a server using SSH: `ssh user@host`
 (*) Generate a SSH key: `ssh-keygen`
 (*) Generate SSH public key from the private key: `ssh-keygen -y -f privatekey.pem > publickey.pem`
@@ -16,9 +19,11 @@ SSH - OPENSSH (THANKS, PUFFY!)
 (*) Append a pub key from pem file and save in remote server accessing with another key: `ssh-keygen -y -f user-key.pem | ssh user@host -i already_on_remote_server_key.pem 'cat >> ~/.ssh/authorized_keys'`
 (*) Backup VPS disk to another host: `ssh root@vps.example -p22 "cat /dev/sda1 | gzip -1 - " > vps.sda1.img.gz`
 (*) Test your bash skills: `ssh bandit0@bandit.labs.overthewire.org -p 2220`
+```
 
 
-##### Tool: [ssh](https://www.openssh.com/)
+
+## Exmples
 
 ###### Escape Sequence
 
