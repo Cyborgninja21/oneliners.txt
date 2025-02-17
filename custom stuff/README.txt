@@ -1,30 +1,30 @@
 oneliners.txt
 -------------
 
-    This is a collection of oneliners, commands, scripts, etc. for UNIX-like systems.
-    Some Powershell commands are also included. Most lines are in this format:
+    This is a collection of oneliners for UNIX-like systems.
+    It's a dog's breakfast of compliance and dependencies (user beware!).
+    Most lines are in the following format (SHELL is *nix by default):
 
-    (*) DESCRIPTION: `COMMAND`
+    Format:
 
-    (*) (SU) Show only errors and warnings: `dmesg --level=err,warn`
-          ▲
-          ▲
-          ▲
-    Some lines have a descriptor if they refer to a specific OS, or usage (such as superuser).
+    ($) (SHELL) DESCRIPTION: `COMMAND`
+      \    \
+       \    \
+        \   Specifies shell or *nix if blank
+         \
+         Can be run by regular user (# requires privileges)
 
-Command not found
------------------
+Where's my command?
+-------------------
 
-    You'll eventually get a 'command not found' message from your shell.
-    You can try these commands to find the FILE (i.e. binaries) required to run some oneliners:
+    You might get a 'command not found' complaint from your shell.
+    You can try your distro's corresponding command to find the package
+    providing that CMD:
 
-        Arch-based distros: `pacman -Fy FILE`
-        Ubuntu-based distros: `apt-file update && apt-file find FILE`
-        RHEL / CentOS-based distros: `yum whatprovides '*FILE'`
-        Fedora: `dnf provides '*FILE'`
-        OpenSUSE: `zypper wp FILE`
-
-    In Windows, you can install MSYS2 or WSL to get similar *NIX-like commands.
-    You can use 'chocolatey' to get some binaries, or perhaps just learn Powershell
-    to do many of the things typically possible on *NIX systems (some PS commands
-    are included in this repo!)
+    Gentoo ............ `equery b $(which CMD)` (or `qfile`)
+    Arch .............. `pacman -Fy CMD`
+    Fedora ............ `dnf provides '*CMD'`
+    Debian, Ubuntu .... `apt-file update && apt-file find CMD`
+    RHEL / CentOS ..... `yum whatprovides '*CMD'`
+    OpenSUSE .......... `zypper wp CMD`
+    Powershell ........  (no standard way: try `Get-Help CMD`)
